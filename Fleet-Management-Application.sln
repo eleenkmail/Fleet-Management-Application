@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "fleet managment app", "fleet managment app.csproj", "{B0772AF5-84F9-4C92-B893-1C0ED0B0E521}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FMS-DB", "FMS-DB\FMS-DB.csproj", "{164B8ACE-185D-4EC5-B36C-3FD7696FAC8C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FMA-API", "FMA-API\FMA-API.csproj", "{94A8A414-A528-4513-8DF0-A936BE96D84C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B0772AF5-84F9-4C92-B893-1C0ED0B0E521}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0772AF5-84F9-4C92-B893-1C0ED0B0E521}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0772AF5-84F9-4C92-B893-1C0ED0B0E521}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0772AF5-84F9-4C92-B893-1C0ED0B0E521}.Release|Any CPU.Build.0 = Release|Any CPU
+		{164B8ACE-185D-4EC5-B36C-3FD7696FAC8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{164B8ACE-185D-4EC5-B36C-3FD7696FAC8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{164B8ACE-185D-4EC5-B36C-3FD7696FAC8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{164B8ACE-185D-4EC5-B36C-3FD7696FAC8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94A8A414-A528-4513-8DF0-A936BE96D84C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94A8A414-A528-4513-8DF0-A936BE96D84C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94A8A414-A528-4513-8DF0-A936BE96D84C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94A8A414-A528-4513-8DF0-A936BE96D84C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {18BC9AA9-7B08-407C-82CB-C46A1A148462}
+	EndGlobalSection
+EndGlobal

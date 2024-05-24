@@ -1,0 +1,61 @@
+﻿using System;
+namespace FMS_DB
+{
+	public enum Tags
+	{
+        Tags,
+        ID,
+        Vehicles,
+        VehicleID,
+        VehicleNumber,
+        VehicleType,
+        DriverID,
+        VehicleMake,
+        VehicleModel,
+        PurchaseDate,
+        VehicleDirection,
+        Status,
+        VehicleSpeed,
+        Address,
+        Epoch,
+        Latitude,
+        Longitude,
+        LastDirection,
+        LastStatus,
+        LastAddress,
+        LastLatitude,
+        LastLongitude,
+        FirstEpoch,
+        LastEpoch,
+        GPSSpeed,
+        GPSTime,
+        VehicleInformation,
+        DriverName,
+        PhoneNumber,
+        LastPosition,
+        LastGPSTime,
+        LastGPSSpeed,
+        Drivers,
+        Geofences,
+        GeofenceID,
+        GeofenceType,
+        AddedDate,
+        StrokeColor,
+        StrokeOpacity,
+        StrokeWeight,
+        FillColor,
+        FillOpacity,
+        Radius,
+        North,
+        East,
+        West,
+        South,
+        STS,
+        RouteHistory,
+        RouteHistoryID,
+        Msg
+
+
+    }
+}
+

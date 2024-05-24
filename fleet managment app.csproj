@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <RootNamespace>fleet_managment_app</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="GVAR.ts" />
+    <None Remove="FPro.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GVAR.ts" />
+    <Compile Include="FPro.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="FMS-DB\FMS-DB.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="FPro">
+      <HintPath>FPro.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>

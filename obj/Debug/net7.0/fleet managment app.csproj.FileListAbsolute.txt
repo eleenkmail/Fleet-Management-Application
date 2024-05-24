@@ -1,0 +1,5 @@
+/Users/aleenkmail/Projects/fleet managment app/fleet managment app/obj/Debug/net7.0/fleet managment app.csproj.AssemblyReference.cache
+/Users/aleenkmail/Projects/fleet managment app/fleet managment app/obj/Debug/net7.0/fleet managment app.GeneratedMSBuildEditorConfig.editorconfig
+/Users/aleenkmail/Projects/fleet managment app/fleet managment app/obj/Debug/net7.0/fleet managment app.AssemblyInfoInputs.cache
+/Users/aleenkmail/Projects/fleet managment app/fleet managment app/obj/Debug/net7.0/fleet managment app.AssemblyInfo.cs
+/Users/aleenkmail/Projects/fleet managment app/fleet managment app/obj/Debug/net7.0/fleet managment app.csproj.CoreCompileInputs.cache

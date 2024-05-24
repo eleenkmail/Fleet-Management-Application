@@ -1,0 +1,14 @@
+/Users/aleenkmail/Projects/fleet managment app/fleet managment app/FMS-DB/bin/Debug/net7.0/FMS-DB.deps.json
+/Users/aleenkmail/Projects/fleet managment app/fleet managment app/FMS-DB/bin/Debug/net7.0/FMS-DB.dll
+/Users/aleenkmail/Projects/fleet managment app/fleet managment app/FMS-DB/bin/Debug/net7.0/FMS-DB.pdb
+/Users/aleenkmail/Projects/fleet managment app/fleet managment app/FMS-DB/bin/Debug/net7.0/FPro.dll
+/Users/aleenkmail/Projects/fleet managment app/fleet managment app/FMS-DB/obj/Debug/net7.0/FMS-DB.csproj.AssemblyReference.cache
+/Users/aleenkmail/Projects/fleet managment app/fleet managment app/FMS-DB/obj/Debug/net7.0/FMS-DB.GeneratedMSBuildEditorConfig.editorconfig
+/Users/aleenkmail/Projects/fleet managment app/fleet managment app/FMS-DB/obj/Debug/net7.0/FMS-DB.AssemblyInfoInputs.cache
+/Users/aleenkmail/Projects/fleet managment app/fleet managment app/FMS-DB/obj/Debug/net7.0/FMS-DB.AssemblyInfo.cs
+/Users/aleenkmail/Projects/fleet managment app/fleet managment app/FMS-DB/obj/Debug/net7.0/FMS-DB.csproj.CoreCompileInputs.cache
+/Users/aleenkmail/Projects/fleet managment app/fleet managment app/FMS-DB/obj/Debug/net7.0/FMS-DB.csproj.CopyComplete
+/Users/aleenkmail/Projects/fleet managment app/fleet managment app/FMS-DB/obj/Debug/net7.0/FMS-DB.dll
+/Users/aleenkmail/Projects/fleet managment app/fleet managment app/FMS-DB/obj/Debug/net7.0/refint/FMS-DB.dll
+/Users/aleenkmail/Projects/fleet managment app/fleet managment app/FMS-DB/obj/Debug/net7.0/FMS-DB.pdb
+/Users/aleenkmail/Projects/fleet managment app/fleet managment app/FMS-DB/obj/Debug/net7.0/ref/FMS-DB.dll

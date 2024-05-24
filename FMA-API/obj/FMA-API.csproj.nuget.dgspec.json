@@ -1,0 +1,162 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/aleenkmail/Desktop/Fleet-Management-Application/FMA-API/FMA-API.csproj": {}
+  },
+  "projects": {
+    "/Users/aleenkmail/Desktop/Fleet-Management-Application/FMA-API/FMA-API.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/aleenkmail/Desktop/Fleet-Management-Application/FMA-API/FMA-API.csproj",
+        "projectName": "FMA-API",
+        "projectPath": "/Users/aleenkmail/Desktop/Fleet-Management-Application/FMA-API/FMA-API.csproj",
+        "packagesPath": "/Users/aleenkmail/.nuget/packages/",
+        "outputPath": "/Users/aleenkmail/Desktop/Fleet-Management-Application/FMA-API/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/aleenkmail/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "/usr/local/share/dotnet/sdk/7.0.316/Sdks/Microsoft.NET.Sdk.Web/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Users/aleenkmail/Desktop/Fleet-Management-Application/FMS-DB/FMS-DB.csproj": {
+                "projectPath": "/Users/aleenkmail/Desktop/Fleet-Management-Application/FMS-DB/FMS-DB.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Fleck": {
+              "target": "Package",
+              "version": "[1.2.0, )"
+            },
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.18, )"
+            },
+            "Microsoft.AspNetCore.SignalR.Common": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
+            "Microsoft.AspNetCore.WebSockets": {
+              "target": "Package",
+              "version": "[2.2.1, )"
+            },
+            "Microsoft.Bcl.Async": {
+              "target": "Package",
+              "version": "[1.0.168, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.5.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.316/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/aleenkmail/Desktop/Fleet-Management-Application/FMS-DB/FMS-DB.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/aleenkmail/Desktop/Fleet-Management-Application/FMS-DB/FMS-DB.csproj",
+        "projectName": "FMS-DB",
+        "projectPath": "/Users/aleenkmail/Desktop/Fleet-Management-Application/FMS-DB/FMS-DB.csproj",
+        "packagesPath": "/Users/aleenkmail/.nuget/packages/",
+        "outputPath": "/Users/aleenkmail/Desktop/Fleet-Management-Application/FMS-DB/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/aleenkmail/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Npgsql": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.316/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
