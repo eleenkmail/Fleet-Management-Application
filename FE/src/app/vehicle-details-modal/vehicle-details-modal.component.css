@@ -1,0 +1,53 @@
+/* modal-overlay styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* modal-container styles */
+.modal-container {
+  background-color: white;
+  border-radius: 5px;
+  padding: 20px;
+  width: 80%;
+  max-width: 600px;
+}
+
+/* modal-header styles */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* close-button styles */
+.close-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* modal-body styles */
+.modal-body {
+  /* Add styles as needed */
+}
+
+/* detail-row styles */
+.detail-row {
+  display: flex;
+  justify-content: space-between; /* Adjust alignment */
+  margin-bottom: 10px;
+}
+
+/* detail-row span styles */
+.detail-row span {
+  font-weight: bold;
+}

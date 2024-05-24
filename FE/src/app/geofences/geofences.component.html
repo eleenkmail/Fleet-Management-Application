@@ -1,0 +1,28 @@
+
+<table>
+    <thead>
+      <tr>
+        <th>Geofence ID</th>
+        <th>Geofence Type</th>
+        <th>Added Date</th>
+        <th>Stroke Color</th>
+        <th>Stroke Opacity</th>
+        <th>Stroke Weight</th>
+        <th>Fill Color</th>
+        <th>Fill Opacity</th>
+      </tr>
+    </thead>
+    <tbody>
+     <tr *ngFor="let Geofence of Geofences.DicOfDT.Geofences">
+        <td>{{Geofence.GeofenceID}}</td>
+        <td>{{Geofence.GeofenceType}}</td>
+        <td>{{convertEpochToDate(Geofence.AddedDate)}}</td>
+        <td>{{Geofence.StrokeColor}}</td>
+        <td>{{Geofence.StrokeOpacity}}</td>
+        <td>{{Geofence.StrokeWeight}}</td>
+        <td>{{Geofence.FillColor}}</td>
+        <td>{{Geofence.FillOpacity}}</td>
+     </tr>
+    </tbody>
+  </table>
+

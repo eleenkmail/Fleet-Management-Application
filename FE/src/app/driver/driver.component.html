@@ -1,0 +1,45 @@
+<!-- <app-navbar></app-navbar> -->
+<table class="add-driver" >
+  <tr>
+    <td>Driver Name<input type="text" [(ngModel)]="DriverToAdd.DriverName" [required]="true"/></td>
+    <td>Phone Number<input type="text" [(ngModel)]="DriverToAdd.PhoneNumber"/></td>
+    <td>
+      <button class="add-driver-button" (click)="addDriverInfo(DriverToAdd)">Add</button>
+    </td>
+  </tr>
+</table>
+
+<table>
+
+  <thead>
+
+    <tr>
+      <th>Driver ID</th>
+      <th>Driver Name</th>
+      <th>Driver Phone Number</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="updateDriver">
+      <td>{{DriverToUpdate.DicOfDic.Tags.DriverID}}</td>
+      <td><input type="text" [(ngModel)]="DriverToUpdate.DicOfDic.Tags.DriverName"/></td>
+      <td><input type="text" [(ngModel)]="DriverToUpdate.DicOfDic.Tags.PhoneNumber" /></td>
+      <td>
+        <button class="close-button" (click)="closeUpdateDriver()">Close</button>
+        <button class="update-button" (click)="updateDriverInfo(DriverToUpdate)">Update</button>
+      </td>
+    </tr>
+
+    <tr *ngFor="let Driver of Drivers.DicOfDT.Drivers">
+      <td>{{Driver.DriverID}}</td>
+      <td>{{Driver.DriverName}}</td>
+      <td>{{Driver.PhoneNumber}}</td>
+      <td><button (click)="showUpdateDriver(Driver)">Update</button></td>
+    </tr>
+  </tbody>
+
+
+</table>
+
+

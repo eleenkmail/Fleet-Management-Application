@@ -1,0 +1,117 @@
+
+<div class="route-history">
+    
+  <div class = "add-history">
+    <h3>Add Route History</h3>
+    <table>
+      <thead>
+        <tr>
+      <th>Vehicle Number</th>
+      <th>Direction</th>
+      <th>Status</th>
+      <th>Time</th>
+      <th>Address</th>
+      <th>Speed</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Action</th>
+   </tr>
+  </thead>
+ 
+  <tbody>
+    <tr>
+
+      <td><select id="vehicleSelect" [(ngModel)]="selectedVehicleId">
+        <option *ngFor="let vehicle of vehicles.DicOfDT.Vehicles" [value]="vehicle.VehicleID">{{ vehicle.VehicleNumber }}</option>
+      </select></td>
+
+      <td>
+      <input type="text" [(ngModel)]="RouteHistory.VehicleDirection" />
+      </td>
+
+      <td>
+        <input type="text" [(ngModel)]="RouteHistory.Status" />
+      </td>
+
+      <td>
+        <input type="date" [(ngModel)]="RouteHistory.Epoch" />
+      </td>
+
+      <td>
+        <input type="text" [(ngModel)]="RouteHistory.Address" />
+      </td>
+
+      <td>
+        <input type="text" [(ngModel)]="RouteHistory.VehicleSpeed" />
+      </td>
+
+      <td>
+        <input type="text" [(ngModel)]="RouteHistory.Latitude" />
+      </td>
+
+      <td>
+        <input type="text" [(ngModel)]="RouteHistory.Longitude" />
+      </td>
+
+      <td>
+        <button (click)="addHistory()">Add</button>
+      </td>
+  </tr>
+  </tbody>
+
+ </table>
+
+</div>
+
+<div class="show-history">
+    <div>
+      <h3>Route History Table</h3>
+      <label for="vehicleSelect">Select Vehicle:</label>
+      <select id="vehicleSelect" [(ngModel)]="selectedVehicleId" (change)="onVehicleSelect()">
+        <option *ngFor="let vehicle of vehicles.DicOfDT.Vehicles" [value]="vehicle.VehicleID">
+          {{ vehicle.VehicleNumber }}
+        </option>
+      </select>
+    </div>
+  
+    <div class="route-history-table">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Direction</th>
+            <th>Status</th>
+            <th>Speed</th>
+            <th>Time</th>
+            <th>Address</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+          </tr>
+
+          
+        </thead>
+
+
+        <tbody *ngIf="routeHistory.length > 0">
+         
+          <tr *ngFor="let route of sortedRouteHistory.DicOfDT.RouteHistory">
+            <td>{{ route.RouteHistoryID}}</td>
+            <td>{{ route.VehicleDirection}}</td>
+            <td>{{ route.Status }}</td>
+            <td>{{ route.GPSSpeed }}</td>
+            <td>{{ convertEpochToDate(route.GPSTime) }}</td>
+            <td>{{ route.Address }}</td>
+            <td>{{ route.Latitude }}</td>
+            <td>{{ route.Longitude }}</td>
+          </tr>
+        </tbody>
+
+      </table>
+
+      <div *ngIf="routeHistory.length === 0 && selectedVehicleId">
+        <p>No route history available for this vehicle.</p>
+      </div>
+    </div>
+
+  </div>
+  

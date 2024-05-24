@@ -1,0 +1,78 @@
+<div class="modal-overlay">
+    <!-- *ngIf="vehicleDetails.DicOfDT.VehicleInformation[0]" -->
+    
+    
+    <div class="modal-container">
+      <div class="modal-header">
+        <h2>Vehicle Details</h2>
+        <button class="close-button" (click)="closeModal()">X</button>
+      </div>
+      <div class="modal-body" *ngIf="vehicleDetails.DicOfDic.Tags.STS" >
+      <div class="modal-body" *ngIf="vehicleDetails.DicOfDT.VehicleInformation[0]" >
+        <!-- Populate with detailed vehicle information -->
+            <div class="detail-row">
+            <span>Vehicle Number:</span>
+            <span>{{vehicleDetails.DicOfDT.VehicleInformation[0].VehicleNumber}}</span>
+            </div>
+        
+            <div class="detail-row">
+            <span>Vehicle Type:</span>
+            <span>{{vehicleDetails.DicOfDT.VehicleInformation[0].VehicleType}}</span>
+            </div>
+
+            <div class="detail-row">
+            <span>Driver Name:</span>
+            <span>{{vehicleDetails.DicOfDT.VehicleInformation[0].DriverName}}</span>
+            </div>
+
+            <div class="detail-row">
+            <span>Phone Number:</span>
+            <span>{{vehicleDetails.DicOfDT.VehicleInformation[0].PhoneNumber}}</span>
+            </div>
+
+            <div class="detail-row">
+            <span>Last Position:</span>
+            <span>{{vehicleDetails.DicOfDT.VehicleInformation[0].LastPosition}}</span>
+            </div>
+
+            <div class="detail-row">
+            <span>Vehicle Make:</span>
+            <span>{{vehicleDetails.DicOfDT.VehicleInformation[0].VehicleMake}}</span>
+            </div>
+
+            <div class="detail-row">
+            <span>Vehicle Model:</span>
+            <span>{{vehicleDetails.DicOfDT.VehicleInformation[0].VehicleModel}}</span>
+            </div>
+
+            <div class="detail-row">
+            <span>Last GPS Time:</span>
+            <span>{{vehicleDetails.DicOfDT.VehicleInformation[0].LastGPSTime}}</span>
+            </div>
+
+            <div class="detail-row">
+            <span>Last GPS Speed:</span>
+            <span>{{vehicleDetails.DicOfDT.VehicleInformation[0].LastGPSSpeed}}</span>
+            </div>
+        
+            <div class="detail-row">
+            <span>Last Address:</span>
+            <span>{{vehicleDetails.DicOfDT.VehicleInformation[0].LastAddress}}</span>
+            </div>
+
+      </div>
+
+      <div class="modal-body" *ngIf="vehicleDetails.DicOfDT.VehicleInformation[0]==null">
+        <p>There Is no information for this vehicle</p>
+      </div>
+      
+      </div>
+    <div class="modal-body" *ngIf="vehicleDetails.DicOfDic.Tags.STS==0">
+        <p>Error in getting data, STS: 0</p>
+    </div>
+
+    </div>
+</div>
+
+
+

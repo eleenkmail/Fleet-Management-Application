@@ -1,0 +1,127 @@
+
+<table class="add-vehicle" >
+  <h3>Vehicles</h3> 
+    <tr>
+      <td>Vehicle Number<input type="text" [(ngModel)]="VehiclesInfoGvar.VehicleNumber"/></td>
+      <td>Vehicle Type<input type="text" [(ngModel)]="VehiclesInfoGvar.VehicleType"/></td>
+    <td>
+    <button class="add-vehicle-button" (click)="addVehicle(VehiclesInfoGvar)">Add</button>
+    </td>
+    </tr>
+  </table>
+
+
+  
+<table>
+  
+    <thead>
+  
+      <tr>
+        <th>Vehicle ID</th>
+        <th>Vehicle Number</th>
+        <th>Vehicle Type</th>
+       
+        <th>Actions</th>
+      </tr>
+  
+    </thead>
+    <tbody>
+      <tr *ngIf="updateVehicle">
+        <td>{{VehicleToUpdate.DicOfDic.Tags.VehicleID}}</td>
+        <td><input type="text" [(ngModel)]="VehicleToUpdate.DicOfDic.Tags.VehicleNumber"/></td>
+        <td><input type="text" [(ngModel)]="VehicleToUpdate.DicOfDic.Tags.VehicleType"/></td>
+
+        <td class="vehicles">
+          <button class="close-button" (click)="closeUpdate()">Close</button>
+          <button class="update-button" (click)="updateVheicle(VehicleToUpdate)">Update/Add</button>
+        </td>
+      </tr>
+  
+  <tr *ngFor="let Vehicle of Vehicles.DicOfDT.Vehicles">
+        <td>{{Vehicle.VehicleID}}</td>
+        <td>{{Vehicle.VehicleNumber}}</td>
+        <td>{{Vehicle.VehicleType}}</td>
+
+        <td class="vehicles"><button (click)="showUpdateVehicles(Vehicle)">Update</button>
+       <button class="delete" (click)="deleteVehicles(Vehicle)">Delete Vehicle</button></td>
+      </tr>
+    </tbody>
+
+  
+  </table> 
+
+
+
+
+  <table class="add-vehicle" >
+    <h3>Vehicles Information</h3>
+    <tr>
+      <td>Vehicle Number<select id="vehicleSelect" [(ngModel)]="VehiclesInfoGvar.VehicleID">
+        <option *ngFor="let vehicle of Vehicles.DicOfDT.Vehicles" [value]="vehicle.VehicleID">{{ vehicle.VehicleNumber }}</option>
+      </select></td>
+
+      <td>Driver Name<select id="driverSelect" [(ngModel)]="VehiclesInfoGvar.DriverID">
+        <option *ngFor="let driver of Drivers.DicOfDT.Drivers" [value]="driver.DriverID">{{ driver.DriverName }}</option>
+      </select></td>
+
+      <td>Vehicle Make<input type="text" [(ngModel)]="VehiclesInfoGvar.VehicleMake"/></td>
+      <td>Vehicle Model<input type="text" [(ngModel)]="VehiclesInfoGvar.VehicleModel"/></td>
+      <td>Vehicle PurchaseDate<input type="date" [(ngModel)]="VehiclesInfoGvar.PurchaseDate"/></td>
+    <td>
+    <button class="add-vehicle-button" (click)="addVheicleInfo(VehiclesInfoGvar)">Add</button>
+    </td>
+    </tr>
+  </table>
+
+
+
+
+  <table>
+  
+    <thead>
+  
+      <tr>
+        <th>Vehicle ID</th>
+        <th>Vehicle Make</th>
+        <th>Vehicle Model</th>
+        <th>Purchase Date</th>
+        <th>Driver Name</th> 
+     
+        <th>Actions</th>
+      </tr>
+  
+    </thead>
+    <tbody>
+      <tr *ngIf="updateVehicleInfo">
+        <td>{{VehicleToUpdate.DicOfDic.Tags.VehicleID}}</td>
+  
+        <td><input type="text" [(ngModel)]="VehicleToUpdate.DicOfDic.Tags.VehicleMake"/></td>
+        <td><input type="text" [(ngModel)]="VehicleToUpdate.DicOfDic.Tags.VehicleModel"/></td>
+        <td><input type="date" [(ngModel)]="VehicleToUpdate.DicOfDic.Tags.PurchaseDate"/></td>
+        <td>
+          <select [(ngModel)]="VehicleToUpdate.DicOfDic.Tags.DriverID">
+            <option *ngFor="let driver of Drivers.DicOfDT.Drivers" [value]="driver.DriverID">{{ driver.DriverName }}</option>
+          </select>
+        </td> 
+
+        <td class="vehicles">
+          <button class="close-button" (click)="closeUpdate()">Close</button>
+          <button class="update-button" (click)="updateVheicleInfo(VehicleToUpdate)">Update</button>
+        </td>
+      </tr>
+  
+  <tr *ngFor="let Vehicle of VehiclesInfo.DicOfDT.VehicleInformation">
+        <td>{{Vehicle.VehicleID}}</td>
+        <td>{{Vehicle.VehicleMake}}</td>
+        <td>{{Vehicle.VehicleModel}}</td>
+        <td *ngIf="Vehicle.PurchaseDate!=''">{{convertEpochToDate(Vehicle.PurchaseDate)}}</td>
+        <td *ngIf="Vehicle.PurchaseDate==''">{{Vehicle.PurchaseDate}}</td>
+        <td>{{Vehicle.DriverName}}</td>
+
+        <td class="vehicles"><button (click)="showUpdateVehiclesInfo(Vehicle)">Update</button>
+        <button class="delete" (click)="deleteInfo(Vehicle)">Delete Info</button></td>
+      </tr>
+    </tbody>
+
+  
+  </table> 

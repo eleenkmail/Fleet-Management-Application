@@ -1,0 +1,34 @@
+<!-- main-page.component.html -->
+<app-vehicle-details-modal *ngIf="showModal"  (closeModalEvent)="closeModal()"></app-vehicle-details-modal>
+
+<table>
+    <thead>
+      <tr>
+        <th>Vehicle ID</th>
+        <th>Vehicle Number</th>
+        <th>Vehicle Type</th>
+        <th>Last Direction</th>
+        <th>Last Status</th>
+        <th>Last Address</th>
+        <th>Last Latitude</th>
+        <th>Last Longitude</th>
+        <th>Action</th>
+
+      </tr>
+    </thead>
+    <tbody>
+     <tr *ngFor="let vehicle of GvarVehiclesInfo.DicOfDT.Vehicles">
+        <td>{{vehicle.VehicleID}}</td>
+        <td>{{vehicle.VehicleNumber}}</td>
+        <td>{{vehicle.VehicleType}}</td>
+        <td>{{vehicle.LastDirection}}</td>
+        <td>{{vehicle.LastStatus}}</td>
+        <td>{{vehicle.LastAddress}}</td>
+        <td>{{vehicle.LastLatitude}}</td>
+        <td>{{vehicle.LastLongitude}}</td>
+        <td><button (click)="showmoreinfo(vehicle.VehicleID)">Show more information</button></td>
+     </tr>
+    </tbody>
+  </table>
+
+  <!-- <app-driver></app-driver> -->
