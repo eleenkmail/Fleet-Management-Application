@@ -1,0 +1,964 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 16.2 (Postgres.app)
+-- Dumped by pg_dump version 16.1
+
+-- Started on 2024-05-24 23:52:31 EEST
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 234 (class 1255 OID 16767)
+-- Name: log_changes(); Type: FUNCTION; Schema: public; Owner: aleenkmail
+--
+
+CREATE FUNCTION public.log_changes() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    IF TG_OP = 'INSERT' THEN
+        -- Insert into the target_table
+        INSERT INTO target_table (source_id, data, action)
+        VALUES (NEW.VehicleID, NEW.VehicleDirection, 'INSERT');
+
+        -- Notify the application about the insert
+        PERFORM pg_notify('trigger_log_changes', row_to_json(NEW)::text);
+    END IF;
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.log_changes() OWNER TO aleenkmail;
+
+--
+-- TOC entry 233 (class 1255 OID 16753)
+-- Name: notify_rh_update(); Type: FUNCTION; Schema: public; Owner: aleenkmail
+--
+
+CREATE FUNCTION public.notify_rh_update() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    PERFORM pg_notify(‘RH_update‘, row_to_json(NEW)::text);
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.notify_rh_update() OWNER TO aleenkmail;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 226 (class 1259 OID 16673)
+-- Name: circlegeofence; Type: TABLE; Schema: public; Owner: aleenkmail
+--
+
+CREATE TABLE public.circlegeofence (
+    id bigint NOT NULL,
+    geofenceid bigint,
+    radius bigint,
+    latitude real,
+    longitude real
+);
+
+
+ALTER TABLE public.circlegeofence OWNER TO aleenkmail;
+
+--
+-- TOC entry 225 (class 1259 OID 16672)
+-- Name: circlegeofence_id_seq; Type: SEQUENCE; Schema: public; Owner: aleenkmail
+--
+
+CREATE SEQUENCE public.circlegeofence_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.circlegeofence_id_seq OWNER TO aleenkmail;
+
+--
+-- TOC entry 3716 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: circlegeofence_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: aleenkmail
+--
+
+ALTER SEQUENCE public.circlegeofence_id_seq OWNED BY public.circlegeofence.id;
+
+
+--
+-- TOC entry 218 (class 1259 OID 16552)
+-- Name: driver; Type: TABLE; Schema: public; Owner: aleenkmail
+--
+
+CREATE TABLE public.driver (
+    driverid bigint NOT NULL,
+    drivername character varying,
+    phonenumber bigint
+);
+
+
+ALTER TABLE public.driver OWNER TO aleenkmail;
+
+--
+-- TOC entry 217 (class 1259 OID 16551)
+-- Name: driver_driverid_seq; Type: SEQUENCE; Schema: public; Owner: aleenkmail
+--
+
+CREATE SEQUENCE public.driver_driverid_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.driver_driverid_seq OWNER TO aleenkmail;
+
+--
+-- TOC entry 3717 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: driver_driverid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: aleenkmail
+--
+
+ALTER SEQUENCE public.driver_driverid_seq OWNED BY public.driver.driverid;
+
+
+--
+-- TOC entry 224 (class 1259 OID 16664)
+-- Name: geofences; Type: TABLE; Schema: public; Owner: aleenkmail
+--
+
+CREATE TABLE public.geofences (
+    geofenceid bigint NOT NULL,
+    geofencetype character varying,
+    addeddate bigint,
+    strokecolor character varying,
+    strokeopacity real,
+    strokeweight real,
+    fillcolor character varying,
+    fillopacity real
+);
+
+
+ALTER TABLE public.geofences OWNER TO aleenkmail;
+
+--
+-- TOC entry 223 (class 1259 OID 16663)
+-- Name: geofences_geofenceid_seq; Type: SEQUENCE; Schema: public; Owner: aleenkmail
+--
+
+CREATE SEQUENCE public.geofences_geofenceid_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.geofences_geofenceid_seq OWNER TO aleenkmail;
+
+--
+-- TOC entry 3718 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: geofences_geofenceid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: aleenkmail
+--
+
+ALTER SEQUENCE public.geofences_geofenceid_seq OWNED BY public.geofences.geofenceid;
+
+
+--
+-- TOC entry 230 (class 1259 OID 16697)
+-- Name: polygongeofence; Type: TABLE; Schema: public; Owner: aleenkmail
+--
+
+CREATE TABLE public.polygongeofence (
+    id bigint NOT NULL,
+    geofenceid bigint,
+    latitude real,
+    longitude real
+);
+
+
+ALTER TABLE public.polygongeofence OWNER TO aleenkmail;
+
+--
+-- TOC entry 229 (class 1259 OID 16696)
+-- Name: polygongeofence_id_seq; Type: SEQUENCE; Schema: public; Owner: aleenkmail
+--
+
+CREATE SEQUENCE public.polygongeofence_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.polygongeofence_id_seq OWNER TO aleenkmail;
+
+--
+-- TOC entry 3719 (class 0 OID 0)
+-- Dependencies: 229
+-- Name: polygongeofence_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: aleenkmail
+--
+
+ALTER SEQUENCE public.polygongeofence_id_seq OWNED BY public.polygongeofence.id;
+
+
+--
+-- TOC entry 228 (class 1259 OID 16685)
+-- Name: rectanglegeofence; Type: TABLE; Schema: public; Owner: aleenkmail
+--
+
+CREATE TABLE public.rectanglegeofence (
+    id bigint NOT NULL,
+    geofenceid bigint,
+    north real,
+    east real,
+    west real,
+    south real
+);
+
+
+ALTER TABLE public.rectanglegeofence OWNER TO aleenkmail;
+
+--
+-- TOC entry 227 (class 1259 OID 16684)
+-- Name: rectanglegeofence_id_seq; Type: SEQUENCE; Schema: public; Owner: aleenkmail
+--
+
+CREATE SEQUENCE public.rectanglegeofence_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.rectanglegeofence_id_seq OWNER TO aleenkmail;
+
+--
+-- TOC entry 3720 (class 0 OID 0)
+-- Dependencies: 227
+-- Name: rectanglegeofence_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: aleenkmail
+--
+
+ALTER SEQUENCE public.rectanglegeofence_id_seq OWNED BY public.rectanglegeofence.id;
+
+
+--
+-- TOC entry 222 (class 1259 OID 16650)
+-- Name: routehistory; Type: TABLE; Schema: public; Owner: aleenkmail
+--
+
+CREATE TABLE public.routehistory (
+    routehistoryid bigint NOT NULL,
+    vehicleid bigint,
+    vehicledirection integer,
+    status character(1),
+    vehiclespeed character varying,
+    epoch bigint,
+    address character varying,
+    latitude real,
+    longitude real
+);
+
+
+ALTER TABLE public.routehistory OWNER TO aleenkmail;
+
+--
+-- TOC entry 221 (class 1259 OID 16649)
+-- Name: routehistory_routehistoryid_seq; Type: SEQUENCE; Schema: public; Owner: aleenkmail
+--
+
+CREATE SEQUENCE public.routehistory_routehistoryid_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.routehistory_routehistoryid_seq OWNER TO aleenkmail;
+
+--
+-- TOC entry 3721 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: routehistory_routehistoryid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: aleenkmail
+--
+
+ALTER SEQUENCE public.routehistory_routehistoryid_seq OWNED BY public.routehistory.routehistoryid;
+
+
+--
+-- TOC entry 232 (class 1259 OID 16758)
+-- Name: target_table; Type: TABLE; Schema: public; Owner: aleenkmail
+--
+
+CREATE TABLE public.target_table (
+    id integer NOT NULL,
+    source_id integer,
+    data text,
+    action text,
+    action_time timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+ALTER TABLE public.target_table OWNER TO aleenkmail;
+
+--
+-- TOC entry 231 (class 1259 OID 16757)
+-- Name: target_table_id_seq; Type: SEQUENCE; Schema: public; Owner: aleenkmail
+--
+
+CREATE SEQUENCE public.target_table_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.target_table_id_seq OWNER TO aleenkmail;
+
+--
+-- TOC entry 3722 (class 0 OID 0)
+-- Dependencies: 231
+-- Name: target_table_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: aleenkmail
+--
+
+ALTER SEQUENCE public.target_table_id_seq OWNED BY public.target_table.id;
+
+
+--
+-- TOC entry 216 (class 1259 OID 16543)
+-- Name: vehicles; Type: TABLE; Schema: public; Owner: aleenkmail
+--
+
+CREATE TABLE public.vehicles (
+    vehicleid bigint NOT NULL,
+    vehiclenumber bigint,
+    vehicletype character varying
+);
+
+
+ALTER TABLE public.vehicles OWNER TO aleenkmail;
+
+--
+-- TOC entry 215 (class 1259 OID 16542)
+-- Name: vehicles_vehicleid_seq; Type: SEQUENCE; Schema: public; Owner: aleenkmail
+--
+
+CREATE SEQUENCE public.vehicles_vehicleid_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.vehicles_vehicleid_seq OWNER TO aleenkmail;
+
+--
+-- TOC entry 3723 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: vehicles_vehicleid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: aleenkmail
+--
+
+ALTER SEQUENCE public.vehicles_vehicleid_seq OWNED BY public.vehicles.vehicleid;
+
+
+--
+-- TOC entry 219 (class 1259 OID 16560)
+-- Name: vehiclesinformations; Type: TABLE; Schema: public; Owner: aleenkmail
+--
+
+CREATE TABLE public.vehiclesinformations (
+    vehicleid bigint,
+    driverid bigint,
+    vehiclemake character varying,
+    vehiclemodel character varying,
+    purchasedate bigint,
+    id bigint NOT NULL
+);
+
+
+ALTER TABLE public.vehiclesinformations OWNER TO aleenkmail;
+
+--
+-- TOC entry 220 (class 1259 OID 16635)
+-- Name: vehiclesinformations_id_seq; Type: SEQUENCE; Schema: public; Owner: aleenkmail
+--
+
+CREATE SEQUENCE public.vehiclesinformations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.vehiclesinformations_id_seq OWNER TO aleenkmail;
+
+--
+-- TOC entry 3724 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: vehiclesinformations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: aleenkmail
+--
+
+ALTER SEQUENCE public.vehiclesinformations_id_seq OWNED BY public.vehiclesinformations.id;
+
+
+--
+-- TOC entry 3512 (class 2604 OID 16676)
+-- Name: circlegeofence id; Type: DEFAULT; Schema: public; Owner: aleenkmail
+--
+
+ALTER TABLE ONLY public.circlegeofence ALTER COLUMN id SET DEFAULT nextval('public.circlegeofence_id_seq'::regclass);
+
+
+--
+-- TOC entry 3508 (class 2604 OID 16555)
+-- Name: driver driverid; Type: DEFAULT; Schema: public; Owner: aleenkmail
+--
+
+ALTER TABLE ONLY public.driver ALTER COLUMN driverid SET DEFAULT nextval('public.driver_driverid_seq'::regclass);
+
+
+--
+-- TOC entry 3511 (class 2604 OID 16667)
+-- Name: geofences geofenceid; Type: DEFAULT; Schema: public; Owner: aleenkmail
+--
+
+ALTER TABLE ONLY public.geofences ALTER COLUMN geofenceid SET DEFAULT nextval('public.geofences_geofenceid_seq'::regclass);
+
+
+--
+-- TOC entry 3514 (class 2604 OID 16700)
+-- Name: polygongeofence id; Type: DEFAULT; Schema: public; Owner: aleenkmail
+--
+
+ALTER TABLE ONLY public.polygongeofence ALTER COLUMN id SET DEFAULT nextval('public.polygongeofence_id_seq'::regclass);
+
+
+--
+-- TOC entry 3513 (class 2604 OID 16688)
+-- Name: rectanglegeofence id; Type: DEFAULT; Schema: public; Owner: aleenkmail
+--
+
+ALTER TABLE ONLY public.rectanglegeofence ALTER COLUMN id SET DEFAULT nextval('public.rectanglegeofence_id_seq'::regclass);
+
+
+--
+-- TOC entry 3510 (class 2604 OID 16653)
+-- Name: routehistory routehistoryid; Type: DEFAULT; Schema: public; Owner: aleenkmail
+--
+
+ALTER TABLE ONLY public.routehistory ALTER COLUMN routehistoryid SET DEFAULT nextval('public.routehistory_routehistoryid_seq'::regclass);
+
+
+--
+-- TOC entry 3515 (class 2604 OID 16761)
+-- Name: target_table id; Type: DEFAULT; Schema: public; Owner: aleenkmail
+--
+
+ALTER TABLE ONLY public.target_table ALTER COLUMN id SET DEFAULT nextval('public.target_table_id_seq'::regclass);
+
+
+--
+-- TOC entry 3507 (class 2604 OID 16546)
+-- Name: vehicles vehicleid; Type: DEFAULT; Schema: public; Owner: aleenkmail
+--
+
+ALTER TABLE ONLY public.vehicles ALTER COLUMN vehicleid SET DEFAULT nextval('public.vehicles_vehicleid_seq'::regclass);
+
+
+--
+-- TOC entry 3509 (class 2604 OID 16636)
+-- Name: vehiclesinformations id; Type: DEFAULT; Schema: public; Owner: aleenkmail
+--
+
+ALTER TABLE ONLY public.vehiclesinformations ALTER COLUMN id SET DEFAULT nextval('public.vehiclesinformations_id_seq'::regclass);
+
+
+--
+-- TOC entry 3704 (class 0 OID 16673)
+-- Dependencies: 226
+-- Data for Name: circlegeofence; Type: TABLE DATA; Schema: public; Owner: aleenkmail
+--
+
+COPY public.circlegeofence (id, geofenceid, radius, latitude, longitude) FROM stdin;
+1	1	1000	40.7128	-74.006
+2	2	800	34.0522	-118.2437
+\.
+
+
+--
+-- TOC entry 3696 (class 0 OID 16552)
+-- Dependencies: 218
+-- Data for Name: driver; Type: TABLE DATA; Schema: public; Owner: aleenkmail
+--
+
+COPY public.driver (driverid, drivername, phonenumber) FROM stdin;
+2	Jane Smith	9876543210
+4	Ahmed	34567678546
+1	John	1234567890
+5	Ah	7985300000
+7	Eleen	890309456
+8	Eleen	8909879870
+6	John	798534546
+9	Elen	9078789
+10	Dana	54664576
+\.
+
+
+--
+-- TOC entry 3702 (class 0 OID 16664)
+-- Dependencies: 224
+-- Data for Name: geofences; Type: TABLE DATA; Schema: public; Owner: aleenkmail
+--
+
+COPY public.geofences (geofenceid, geofencetype, addeddate, strokecolor, strokeopacity, strokeweight, fillcolor, fillopacity) FROM stdin;
+1	Polygon	1619458800000	Red	0.8	2.5	Blue	0.7
+2	Circle	1619458800000	Green	0.6	3	Yellow	0.9
+3	Rectangle	1619458800000	Black	0.5	2	White	0.8
+4	Polygon	1619458800000	Red	0.8	2.5	Blue	0.7
+5	Circle	1619458800000	Green	0.6	3	Yellow	0.9
+6	Rectangle	1619458800000	Black	0.5	2	White	0.8
+\.
+
+
+--
+-- TOC entry 3708 (class 0 OID 16697)
+-- Dependencies: 230
+-- Data for Name: polygongeofence; Type: TABLE DATA; Schema: public; Owner: aleenkmail
+--
+
+COPY public.polygongeofence (id, geofenceid, latitude, longitude) FROM stdin;
+1	5	40.748817	-73.98543
+2	5	40.748093	-73.985306
+3	5	40.747585	-73.98472
+4	6	34.052235	-118.24368
+5	6	34.051495	-118.242584
+6	6	34.05061	-118.24391
+\.
+
+
+--
+-- TOC entry 3706 (class 0 OID 16685)
+-- Dependencies: 228
+-- Data for Name: rectanglegeofence; Type: TABLE DATA; Schema: public; Owner: aleenkmail
+--
+
+COPY public.rectanglegeofence (id, geofenceid, north, east, west, south) FROM stdin;
+1	3	40.75	-73.95	-73.98	40.73
+2	4	34.0716	-118.2763	-118.2963	34.0516
+\.
+
+
+--
+-- TOC entry 3700 (class 0 OID 16650)
+-- Dependencies: 222
+-- Data for Name: routehistory; Type: TABLE DATA; Schema: public; Owner: aleenkmail
+--
+
+COPY public.routehistory (routehistoryid, vehicleid, vehicledirection, status, vehiclespeed, epoch, address, latitude, longitude) FROM stdin;
+1	4	180	1	50 mph	1649190400	123 Main St	40.7128	-74.006
+2	5	270	0	0 mph	1649190500	456 Elm St	40.7129	-74.0059
+4	4	180	1	50 mph	2049190400	123 Main St	40.7128	-74.006
+5	5	270	0	0 mph	3049190500	456 Elm St	40.7129	-74.0059
+8	4	180	1	50 mph	2049190400	123 Main St	40.7128	-74.006
+9	4	180	1	50 mph	2049190400	123 Main St	40.7128	-74.006
+10	4	180	1	50 mph	2049190400	123 Main St	40.7128	-74.006
+14	25	180	1	50 mph	1715644800	123 Main St	50.7128	74.006
+15	4	90	0	40 mph	1715558400	456 Elm S	40.7128	-74.006
+55	34	180	1	50 mph	42049190400	123 Main St	50.7128	50.006
+56	34	180	1	50 mph	42049190400	123 Main St	40.7128	50.006
+57	34	180	1	50 mph	1716472895000	123 Main St	40.7128	50.006
+58	34	180	1	50 mph	1816472895000	123 Main St	40.7128	50.006
+59	34	180	1	50 mph	1816472895000	123 Main St	60.7128	50.006
+60	34	180	1	50 mph	16472895000	123 Main St	60.7128	50.006
+61	34	180	1	50 mph	1816472895000	123 Main St	60.7128	50.006
+62	34	180	1	50 mph	2016472895000	123 Main St	70.7128	50.006
+63	34	180	1	50 mph	6016472895000	123 Main St	80.7128	50.006
+\.
+
+
+--
+-- TOC entry 3710 (class 0 OID 16758)
+-- Dependencies: 232
+-- Data for Name: target_table; Type: TABLE DATA; Schema: public; Owner: aleenkmail
+--
+
+COPY public.target_table (id, source_id, data, action, action_time) FROM stdin;
+1	34	180	INSERT	2024-05-23 00:20:09.422139
+2	34	180	INSERT	2024-05-23 00:23:31.898509
+3	34	180	INSERT	2024-05-23 16:18:48.154025
+4	34	180	INSERT	2024-05-23 16:19:25.054094
+5	34	180	INSERT	2024-05-23 16:29:46.899179
+6	34	180	INSERT	2024-05-23 16:52:03.227181
+7	34	180	INSERT	2024-05-23 16:52:03.227181
+8	34	180	INSERT	2024-05-23 16:54:19.328288
+9	34	180	INSERT	2024-05-23 16:54:19.328288
+10	34	180	INSERT	2024-05-23 16:59:25.279903
+11	34	180	INSERT	2024-05-23 16:59:25.279903
+12	34	180	INSERT	2024-05-23 17:00:07.034645
+13	34	180	INSERT	2024-05-23 17:00:07.034645
+14	34	180	INSERT	2024-05-23 17:02:03.153007
+15	34	180	INSERT	2024-05-23 17:02:03.153007
+16	34	180	INSERT	2024-05-23 17:02:15.833552
+17	34	180	INSERT	2024-05-23 17:02:15.833552
+18	34	180	INSERT	2024-05-23 17:02:23.519837
+19	34	180	INSERT	2024-05-23 17:02:23.519837
+20	34	180	INSERT	2024-05-23 17:02:40.070821
+21	34	180	INSERT	2024-05-23 17:02:40.070821
+22	34	180	INSERT	2024-05-23 17:02:55.839609
+23	34	180	INSERT	2024-05-23 17:02:55.839609
+24	34	180	INSERT	2024-05-23 17:03:08.697929
+25	34	180	INSERT	2024-05-23 17:03:08.697929
+26	34	180	INSERT	2024-05-24 15:47:39.697495
+27	34	180	INSERT	2024-05-24 15:47:39.697495
+\.
+
+
+--
+-- TOC entry 3694 (class 0 OID 16543)
+-- Dependencies: 216
+-- Data for Name: vehicles; Type: TABLE DATA; Schema: public; Owner: aleenkmail
+--
+
+COPY public.vehicles (vehicleid, vehiclenumber, vehicletype) FROM stdin;
+25	9	Van
+4	19	Car
+28	40	Car
+38	41	car
+6	1	Sedan
+16	2	Car
+20	5	Car
+23	7	Van
+26	20	Van
+27	30	Van
+29	22	Van
+31	24	Van
+32	25	Van
+33	26	Van
+34	27	Van
+11	28	SUV
+5	29	SUV
+8	31	SUV
+12	33	van
+15	34	Car
+30	23	Van
+18	3	Car
+\.
+
+
+--
+-- TOC entry 3697 (class 0 OID 16560)
+-- Dependencies: 219
+-- Data for Name: vehiclesinformations; Type: TABLE DATA; Schema: public; Owner: aleenkmail
+--
+
+COPY public.vehiclesinformations (vehicleid, driverid, vehiclemake, vehiclemodel, purchasedate, id) FROM stdin;
+16	1	Honda	Civic	1679881600000	7
+23	1	Honda	Civic	1679881600000	13
+5	7	dghf	dfhfgh	545677	14
+11	1	dgfdgfg	sedge	10800	15
+12	8	dsfdgfd	dfdgfg	1715558400	17
+6	10	Honda	Civic	1714867200	18
+38	8	honda	civic	1715472000	20
+\.
+
+
+--
+-- TOC entry 3725 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: circlegeofence_id_seq; Type: SEQUENCE SET; Schema: public; Owner: aleenkmail
+--
+
+SELECT pg_catalog.setval('public.circlegeofence_id_seq', 2, true);
+
+
+--
+-- TOC entry 3726 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: driver_driverid_seq; Type: SEQUENCE SET; Schema: public; Owner: aleenkmail
+--
+
+SELECT pg_catalog.setval('public.driver_driverid_seq', 10, true);
+
+
+--
+-- TOC entry 3727 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: geofences_geofenceid_seq; Type: SEQUENCE SET; Schema: public; Owner: aleenkmail
+--
+
+SELECT pg_catalog.setval('public.geofences_geofenceid_seq', 6, true);
+
+
+--
+-- TOC entry 3728 (class 0 OID 0)
+-- Dependencies: 229
+-- Name: polygongeofence_id_seq; Type: SEQUENCE SET; Schema: public; Owner: aleenkmail
+--
+
+SELECT pg_catalog.setval('public.polygongeofence_id_seq', 6, true);
+
+
+--
+-- TOC entry 3729 (class 0 OID 0)
+-- Dependencies: 227
+-- Name: rectanglegeofence_id_seq; Type: SEQUENCE SET; Schema: public; Owner: aleenkmail
+--
+
+SELECT pg_catalog.setval('public.rectanglegeofence_id_seq', 2, true);
+
+
+--
+-- TOC entry 3730 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: routehistory_routehistoryid_seq; Type: SEQUENCE SET; Schema: public; Owner: aleenkmail
+--
+
+SELECT pg_catalog.setval('public.routehistory_routehistoryid_seq', 63, true);
+
+
+--
+-- TOC entry 3731 (class 0 OID 0)
+-- Dependencies: 231
+-- Name: target_table_id_seq; Type: SEQUENCE SET; Schema: public; Owner: aleenkmail
+--
+
+SELECT pg_catalog.setval('public.target_table_id_seq', 27, true);
+
+
+--
+-- TOC entry 3732 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: vehicles_vehicleid_seq; Type: SEQUENCE SET; Schema: public; Owner: aleenkmail
+--
+
+SELECT pg_catalog.setval('public.vehicles_vehicleid_seq', 38, true);
+
+
+--
+-- TOC entry 3733 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: vehiclesinformations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: aleenkmail
+--
+
+SELECT pg_catalog.setval('public.vehiclesinformations_id_seq', 20, true);
+
+
+--
+-- TOC entry 3534 (class 2606 OID 16678)
+-- Name: circlegeofence circlegeofence_pkey; Type: CONSTRAINT; Schema: public; Owner: aleenkmail
+--
+
+ALTER TABLE ONLY public.circlegeofence
+    ADD CONSTRAINT circlegeofence_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3522 (class 2606 OID 16559)
+-- Name: driver driver_pkey; Type: CONSTRAINT; Schema: public; Owner: aleenkmail
+--
+
+ALTER TABLE ONLY public.driver
+    ADD CONSTRAINT driver_pkey PRIMARY KEY (driverid);
+
+
+--
+-- TOC entry 3532 (class 2606 OID 16671)
+-- Name: geofences geofences_pkey; Type: CONSTRAINT; Schema: public; Owner: aleenkmail
+--
+
+ALTER TABLE ONLY public.geofences
+    ADD CONSTRAINT geofences_pkey PRIMARY KEY (geofenceid);
+
+
+--
+-- TOC entry 3538 (class 2606 OID 16702)
+-- Name: polygongeofence polygongeofence_pkey; Type: CONSTRAINT; Schema: public; Owner: aleenkmail
+--
+
+ALTER TABLE ONLY public.polygongeofence
+    ADD CONSTRAINT polygongeofence_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3536 (class 2606 OID 16690)
+-- Name: rectanglegeofence rectanglegeofence_pkey; Type: CONSTRAINT; Schema: public; Owner: aleenkmail
+--
+
+ALTER TABLE ONLY public.rectanglegeofence
+    ADD CONSTRAINT rectanglegeofence_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3530 (class 2606 OID 16657)
+-- Name: routehistory routehistory_pkey; Type: CONSTRAINT; Schema: public; Owner: aleenkmail
+--
+
+ALTER TABLE ONLY public.routehistory
+    ADD CONSTRAINT routehistory_pkey PRIMARY KEY (routehistoryid);
+
+
+--
+-- TOC entry 3540 (class 2606 OID 16766)
+-- Name: target_table target_table_pkey; Type: CONSTRAINT; Schema: public; Owner: aleenkmail
+--
+
+ALTER TABLE ONLY public.target_table
+    ADD CONSTRAINT target_table_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3524 (class 2606 OID 16751)
+-- Name: driver uc_phonenumber; Type: CONSTRAINT; Schema: public; Owner: aleenkmail
+--
+
+ALTER TABLE ONLY public.driver
+    ADD CONSTRAINT uc_phonenumber UNIQUE (phonenumber);
+
+
+--
+-- TOC entry 3518 (class 2606 OID 16743)
+-- Name: vehicles uc_vehiclenumber; Type: CONSTRAINT; Schema: public; Owner: aleenkmail
+--
+
+ALTER TABLE ONLY public.vehicles
+    ADD CONSTRAINT uc_vehiclenumber UNIQUE (vehiclenumber);
+
+
+--
+-- TOC entry 3526 (class 2606 OID 16739)
+-- Name: vehiclesinformations unique_vehicleid; Type: CONSTRAINT; Schema: public; Owner: aleenkmail
+--
+
+ALTER TABLE ONLY public.vehiclesinformations
+    ADD CONSTRAINT unique_vehicleid UNIQUE (vehicleid);
+
+
+--
+-- TOC entry 3520 (class 2606 OID 16550)
+-- Name: vehicles vehicles_pkey; Type: CONSTRAINT; Schema: public; Owner: aleenkmail
+--
+
+ALTER TABLE ONLY public.vehicles
+    ADD CONSTRAINT vehicles_pkey PRIMARY KEY (vehicleid);
+
+
+--
+-- TOC entry 3528 (class 2606 OID 16638)
+-- Name: vehiclesinformations vehiclesinformations_pkey; Type: CONSTRAINT; Schema: public; Owner: aleenkmail
+--
+
+ALTER TABLE ONLY public.vehiclesinformations
+    ADD CONSTRAINT vehiclesinformations_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3547 (class 2620 OID 16770)
+-- Name: routehistory rh_insert_trigger; Type: TRIGGER; Schema: public; Owner: aleenkmail
+--
+
+CREATE TRIGGER rh_insert_trigger AFTER INSERT ON public.routehistory FOR EACH ROW EXECUTE FUNCTION public.log_changes();
+
+
+--
+-- TOC entry 3548 (class 2620 OID 16754)
+-- Name: routehistory rh_update_trigger; Type: TRIGGER; Schema: public; Owner: aleenkmail
+--
+
+CREATE TRIGGER rh_update_trigger AFTER UPDATE ON public.routehistory FOR EACH ROW EXECUTE FUNCTION public.notify_rh_update();
+
+
+--
+-- TOC entry 3549 (class 2620 OID 16768)
+-- Name: routehistory trigger_log_changes; Type: TRIGGER; Schema: public; Owner: aleenkmail
+--
+
+CREATE TRIGGER trigger_log_changes AFTER INSERT ON public.routehistory FOR EACH ROW EXECUTE FUNCTION public.log_changes();
+
+
+--
+-- TOC entry 3544 (class 2606 OID 16723)
+-- Name: circlegeofence circlegeofence_geofenceid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: aleenkmail
+--
+
+ALTER TABLE ONLY public.circlegeofence
+    ADD CONSTRAINT circlegeofence_geofenceid_fkey FOREIGN KEY (geofenceid) REFERENCES public.geofences(geofenceid) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3546 (class 2606 OID 16733)
+-- Name: polygongeofence polygongeofence_geofenceid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: aleenkmail
+--
+
+ALTER TABLE ONLY public.polygongeofence
+    ADD CONSTRAINT polygongeofence_geofenceid_fkey FOREIGN KEY (geofenceid) REFERENCES public.geofences(geofenceid) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3545 (class 2606 OID 16728)
+-- Name: rectanglegeofence rectanglegeofence_geofenceid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: aleenkmail
+--
+
+ALTER TABLE ONLY public.rectanglegeofence
+    ADD CONSTRAINT rectanglegeofence_geofenceid_fkey FOREIGN KEY (geofenceid) REFERENCES public.geofences(geofenceid) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3543 (class 2606 OID 16708)
+-- Name: routehistory routehistory_vehicleid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: aleenkmail
+--
+
+ALTER TABLE ONLY public.routehistory
+    ADD CONSTRAINT routehistory_vehicleid_fkey FOREIGN KEY (vehicleid) REFERENCES public.vehicles(vehicleid) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3541 (class 2606 OID 16713)
+-- Name: vehiclesinformations vehiclesinformations_driverid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: aleenkmail
+--
+
+ALTER TABLE ONLY public.vehiclesinformations
+    ADD CONSTRAINT vehiclesinformations_driverid_fkey FOREIGN KEY (driverid) REFERENCES public.driver(driverid) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3542 (class 2606 OID 16718)
+-- Name: vehiclesinformations vehiclesinformations_vehicleid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: aleenkmail
+--
+
+ALTER TABLE ONLY public.vehiclesinformations
+    ADD CONSTRAINT vehiclesinformations_vehicleid_fkey FOREIGN KEY (vehicleid) REFERENCES public.vehicles(vehicleid) ON DELETE CASCADE;
+
+
+-- Completed on 2024-05-24 23:52:31 EEST
+
+--
+-- PostgreSQL database dump complete
+--
+
