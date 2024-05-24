@@ -1,0 +1,394 @@
+{
+	"info": {
+		"_postman_id": "bdd3d22b-8ce7-4326-91fb-72946c2569db",
+		"name": "FMS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Vehicles",
+			"item": [
+				{
+					"name": "Add Vehicle",
+					"id": "aedd263f-59e1-4b82-b02f-935ffad7a604",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"DicOfDic\": {\n        \"Tags\": {\n            \"VehicleNumber\": \"549697004\",\n            \"VehicleType\": \"Van\"\n        }\n    },\n    \"DicOfDT\": {}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://localhost:7104/Vehicle/Add"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Vehicle",
+					"id": "79e83f57-e3b1-412e-96ed-3ad201082c28",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"DicOfDic\":{\n    \"Tags\":{\n        \"VehicleID\":\"4\",\n        \"VehicleNumber\":\"45546678\",\n        \"VehicleType\":\"Car\"\n    },\n    \"DicOfDT\":{}\n    }}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://localhost:7104/Vehicle/Update"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Vehicle",
+					"id": "e9720d3f-3086-4dd9-82dd-e607a646ca57",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"DicOfDic\":{\n        \"Tags\":{\n            \"VehicleID\":\"1\"\n            },\n    \"DicOfDT\": {}\n            }}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://localhost:7104/Vehicle/Delete"
+					},
+					"response": []
+				}
+			],
+			"id": "cb4b4baf-42d6-485d-a00c-7d06aa6e1a74"
+		},
+		{
+			"name": "Route History",
+			"item": [
+				{
+					"name": "RetrieveAllWithLastEpoch",
+					"id": "fb83c1ad-0d65-454c-99be-d93c6ef41e87",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://localhost:7104/RouteHistory/RetrieveAllWithLastEpoch"
+					},
+					"response": []
+				},
+				{
+					"name": "RetriveVehicleHistoryWithEpochRange",
+					"id": "f4896774-bdf0-4839-b121-afa88d666629",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"DicOfDic\":{\n        \"Tags\":{\n            \"VehicleID\": \"4\",\n            \"FirstEpoch\":\"0\",\n            \"LastEpoch\": \"5000000000\"\n            },\n    \"DicOfDT\": {}\n            }}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://localhost:7104/RouteHistory/WithEpochRange"
+					},
+					"response": []
+				},
+				{
+					"name": "AddRouteHistory",
+					"id": "f23afef5-b39a-4b7b-bc49-b330cf58bf9b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"DicOfDic\":{\"Tags\":{\"VehicleID\" :\"34\",\"VehicleDirection\" : \"180\",\"Status\": \"1\",\"VehicleSpeed\" : \"50 mph\",\"Epoch\" : \"6016472895000\",\"Address\": \"123 Main St\",\"Latitude\": \"80.7128\",\"Longitude\": \"50.0060\"}}}\n\n\n// (4, 180, '1', '50 mph', 2049190400, '123 Main St', 40.7128, -74.0060),\n//     (5, 270, '0', '0 mph', 3049190500, '456 Elm St', 40.7129, -74.0059),\n//     (1, 90, '1', '40 mph', 4049190600, '789 Oak St', 40.7127, -74.0061),\n// \t(1, 50, '1', '40 mph', 3049190600, '789 Oak St', 40.7127, -74.0061);",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://localhost:7104/RouteHistory/AddRouteHistory"
+					},
+					"response": []
+				}
+			],
+			"id": "1d9b8203-4faa-4f91-964c-516a4049625a"
+		},
+		{
+			"name": "Vehicle Information",
+			"item": [
+				{
+					"name": "Add VehicleInformation",
+					"id": "f74c3c1a-5270-44c4-b53f-3a1e964f3731",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"DicOfDic\":{\n        \"Tags\":{\n            \"VehicleID\":\"23\",\n            \"DriverID\":\"1\",\n            \"VehicleMake\":\"Honda\",\n            \"VehicleModel\":\"Civic\",\n            \"PurchaseDate\":\"1679881600000\"\n            },\n    \"DicOfDT\": {}\n            }}\n\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://localhost:7104/VehicleInformation/Add"
+					},
+					"response": []
+				},
+				{
+					"name": "Update VehicleInformation",
+					"id": "3f66ae3e-1cb3-4097-ba57-99a52f47c5e4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"DicOfDic\":{\n        \"Tags\":{\n            \"VehicleID\":\"5\",\n            \"DriverID\":\"1\",\n            \"VehicleMake\":\"Honda\",\n            \"VehicleModel\":\"Civic\",\n            \"PurchaseDate\":\"3079881600000\"\n                },\n    \"DicOfDT\": {}}}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://localhost:7104/VehicleInformation/Update"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete VehicleInformation",
+					"id": "2b60fce6-61ca-4bd9-b63c-9cd3b2c524d8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"DicOfDic\":{\n        \"Tags\":{\n        \"VehicleID\": \"15\"\n            },\n    \"DicOfDT\": {}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://localhost:7104/VehicleInformation/Delete"
+					},
+					"response": []
+				},
+				{
+					"name": "Rrtrieve Detailed VehicleInformation",
+					"id": "f90490e0-6442-4d4b-8b98-73918d929fe0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"DicOfDic\":{\n        \"Tags\":{\n            \"VehicleID\": \"6\"\n            }, \n    \"DicOfDT\": {}}}\n\n\n\n    ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://localhost:7104/VehicleInformation/RrtrieveDetailedInfo"
+					},
+					"response": []
+				},
+				{
+					"name": "Rrtrieve Vehicle Info",
+					"id": "8fcb6bc5-7708-44df-9a66-3e5a5eaebe9c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://localhost:7104/VehicleInformation/RrtrieveVehicleInfo"
+					},
+					"response": []
+				}
+			],
+			"id": "e991ae6f-77e1-422e-9f2b-083794ef6aaf"
+		},
+		{
+			"name": "Driver",
+			"item": [
+				{
+					"name": "Add Driver",
+					"id": "b7dc6d98-ad3a-4fb5-a709-ee253cd36c15",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"DicOfDic\":{\"Tags\":{\"DriverName\":\"Ahmed\",\"PhoneNumber\":\"798534546\"}, \"DicOfDT\":{}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://localhost:7104/Driver/Add"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Driver",
+					"id": "8344d634-d414-4c28-853f-b07d8ff2a2f7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"DicOfDic\":{\"Tags\":{\"DriverID\":\"4\",\"DriverName\":\"Ahmed\",\"PhoneNumber\":\"34567678546\"}, \"DicOfDT\": {}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://localhost:7104/Driver/Update"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Driver",
+					"id": "82233c76-80f5-4aa4-9ef3-cf73f6a738f5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"DicOfDic\":{\"Tags\":{\"DriverID\":\"3\"}, \"DicOfDT\": {}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://localhost:7104/Driver/Delete"
+					},
+					"response": []
+				},
+				{
+					"name": "RetriveAllDrivers",
+					"id": "5fa91370-1498-4f5f-a31c-7ab74da6c17a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://localhost:7104/Driver/RetriveAllDrivers"
+					},
+					"response": []
+				}
+			],
+			"id": "cf14ff59-12d8-4082-bd2e-a10c5400ebdf"
+		},
+		{
+			"name": "Geofence",
+			"item": [
+				{
+					"name": "Retrive All Geofences",
+					"id": "38d280d5-1d9d-4ff4-8ddf-7233843abd54",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://localhost:7104/Geofences/RetrieveGeofencesInformation"
+					},
+					"response": []
+				},
+				{
+					"name": "Retrive All Circle Geofences",
+					"id": "7d8a5754-2c72-4714-ae07-e7c20df30484",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://localhost:7104/Geofences/RetrieveCircleGeofencesCoordinates"
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve All Rectangle Geofences",
+					"id": "b23a91aa-2e82-4685-ad25-dd8cbe4d6875",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://localhost:7104/Geofences/RetrieveRectangleGeofencesCoordinates"
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve All Polygon Geofences",
+					"id": "fd967f75-84bb-4456-b1cf-8923303b5635",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://localhost:7104/Geofences/RetrievePolygonGeofencesCoordinates"
+					},
+					"response": []
+				}
+			],
+			"id": "07cacc7b-7d37-4e58-86c5-adc716c327df"
+		}
+	]
+}
