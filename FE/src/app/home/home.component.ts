@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit{
 
         
         else 
-          console.error("(DataBase Error) in fetching vehicles data", data.DicOfDic.Tags.Msg);
+          console.log("(DataBase Error) in fetching vehicles data", data.DicOfDic.Tags.Msg);
        
       },
       (error: any) => {
@@ -76,7 +76,7 @@ export class HomeComponent implements OnInit{
           this.GvarVehicleMoreInfo.DicOfDT.VehicleInformation[0].LastGPSTime = this.convertEpochToDate(this.GvarVehicleMoreInfo.DicOfDT.VehicleInformation[0].LastGPSTime);
         }
         else 
-          console.error("(DataBase Error) in fetching more vehicle data", data.DicOfDic.Tags.Msg);
+          console.log("(DataBase Error) in fetching more vehicle data", data.DicOfDic.Tags.Msg);
         
         this.showModal = true;
      
