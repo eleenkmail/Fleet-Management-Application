@@ -30,7 +30,7 @@ export class GeofencesComponent implements OnInit{
       if (data.DicOfDic.Tags.STS == "1")
         this.Geofences = data;
       else
-        console.error("(DataBase Error) in fetching Geofences data", data.DicOfDic.Tags.Msg);
+        console.log("(DataBase Error) in fetching Geofences data", data.DicOfDic.Tags.Msg);
     },
     (error: any) => {
       console.error('(Client-Server Error) in fetching Geofences data:', error);
