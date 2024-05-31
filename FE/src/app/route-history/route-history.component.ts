@@ -43,7 +43,7 @@ export class RouteHistoryComponent implements OnInit{
       if (data.DicOfDic.Tags.STS == "1")
         this.vehicles = data;
 
-      else console.error("(DataBase Error) in fetching Vehicles data", data.DicOfDic.Tags.Msg);
+      else console.log("(DataBase Error) in fetching Vehicles data", data.DicOfDic.Tags.Msg);
     },
     (error: any) => {
       console.error('(Client-Server Error) in fetching Vehicles data:', error);
@@ -77,7 +77,7 @@ export class RouteHistoryComponent implements OnInit{
           this.sortedRouteHistory = data;
         }
       
-      else console.error("(DataBase Error) in fetching Vehicle History data", data.DicOfDic.Tags.Msg);
+      else console.log("(DataBase Error) in fetching Vehicle History data", data.DicOfDic.Tags.Msg);
       },
 
       (error: any) => {
@@ -96,7 +96,7 @@ export class RouteHistoryComponent implements OnInit{
           console.log("Route History Added Successfully");
 
         else 
-        console.error("(DataBase Error) Route History not Added: ", data.DicOfDic.Tags.Msg);
+        console.log("(DataBase Error) Route History not Added: ", data.DicOfDic.Tags.Msg);
       },
 
       (error: any) => {
