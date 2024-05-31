@@ -53,7 +53,7 @@ export class DriverComponent implements OnInit{
           this.Drivers = data;
 
         else 
-          console.error("(DataBase Error) in Fetching Drivers data " ,data.DicOfDic.Tags.Msg);
+          console.log("(DataBase Error) in Fetching Drivers data " ,data.DicOfDic.Tags.Msg);
     
       },
       (error: any) => {
@@ -73,7 +73,7 @@ export class DriverComponent implements OnInit{
           console.log("Driver Added Successfully ", data.DicOfDic.Tags.Msg);
 
         else
-          console.error("(DataBase Error) in Adding Driver ",data.DicOfDic.Tags.Msg);
+          console.log("(DataBase Error) in Adding Driver ",data.DicOfDic.Tags.Msg);
           
     
       },
@@ -93,7 +93,7 @@ export class DriverComponent implements OnInit{
           console.log("Driver updated Successfullly");
 
         else
-          console.error("(DataBase Error) in updating Driver information" ,data.DicOfDic.Tags.Msg);
+          console.log("(DataBase Error) in updating Driver information" ,data.DicOfDic.Tags.Msg);
       },
 
       (error: any) => {
