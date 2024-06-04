@@ -86,105 +86,72 @@ The WebSocket service is implemented in a separate file to handle connections an
 
 **WebSocketService.cs**:
 ```csharp
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Fleck;
-using Newtonsoft.Json;
 using Npgsql;
+using FMS_DB;
 
-public class WebSocketService
+namespace FMA_API.Controllers
 {
-    private readonly List<IWebSocketConnection> _allSockets = new List<IWebSocketConnection>();
 
-    public WebSocketService()
+    public class WebSocketService
     {
-        var server = new WebSocketServer("ws://0.0.0.0:8181");
-        server.Start(socket =>
+
+        private readonly List<IWebSocketConnection> _allSockets = new List<IWebSocketConnection>();
+        DatabaseConnection db = new DatabaseConnection();
+
+        public WebSocketService()
         {
-            socket.OnOpen = () =>
+            var server = new WebSocketServer("ws://0.0.0.0:8181");
+            server.Start(socket =>
             {
-                Console.WriteLine("Connection Opened!");
-                _allSockets.Add(socket);
-            };
+                socket.OnOpen = () =>
+                {
 
-            socket.OnClose = () =>
-            {
-                Console.WriteLine("Connection Closed!");
-                _allSockets.Remove(socket);
-            };
-        });
+                    _allSockets.Add(socket);
 
-        Task.Run(() => ListenForDatabaseUpdates());
-    }
+                };
 
-    private Gvar FetchLatestDataFromDatabase()
-    {
-        var connectionString = "Host=localhost;Username=postgres;Password=1234567899as;Database=eleenkmail_fms"; // Replace with your actual connection string
+                socket.OnClose = () =>
+                {
+                    _allSockets.Remove(socket);
+                };
 
-        using var connection = new NpgsqlConnection(connectionString);
-        connection.Open();
+                Task.Run(() => ListenForDatabaseUpdates());
+            });
 
-        using var command = new NpgsqlCommand("SELECT id, name, value FROM RouteHistory ORDER BY id DESC LIMIT 1", connection);
-
-        using var reader = command.ExecuteReader();
-        if (reader.Read())
-        {
-            return new Gvar
-            {
-                Id = reader.GetInt32(0),
-                Name = reader.GetString(1),
-                Value = reader.GetString(2)
-            };
         }
-        else
+
+        private async Task ListenForDatabaseUpdates()
         {
-            return null; // No data found
-        }
-    }
+            using var connection = db.Connection();
 
-    private async Task ListenForDatabaseUpdates()
-    {
-        using var connection = new NpgsqlConnection("Host=localhost;Username=postgres;Password=1234567899as;Database=eleenkmail_fms"); // Replace with your actual connection string
-
-        await connection.OpenAsync();
-        Console.WriteLine("Database connection opened and waiting for notifications.");
-
-        connection.Notification += async (sender, args) =>
-        {
-            Console.WriteLine("Notification received: " + args.Payload);
-            var updatedData = FetchLatestDataFromDatabase();
-            if (updatedData != null)
+            await connection.OpenAsync();
+            connection.Notification += async (sender, args) =>
             {
-                var json = JsonConvert.SerializeObject(updatedData);
+
                 foreach (var socket in _allSockets)
                 {
                     if (socket.IsAvailable)
                     {
-                        await socket.Send(json);
-                        Console.WriteLine("Sent data to client: " + json);
+                        await socket.Send("new routehistory added");
                     }
                 }
+            };
+
+
+            using (var command = new NpgsqlCommand($"LISTEN trigger_log_changes;", connection))
+            {
+
+                await command.ExecuteNonQueryAsync();
+
             }
-        };
 
-        using (var command = new NpgsqlCommand("LISTEN trigger_log_changes;", connection))
-        {
-            await command.ExecuteNonQueryAsync();
-            Console.WriteLine("Subscribed to database notifications on channel 'trigger_log_changes'.");
+
+            while (true)
+            {
+                connection.Wait();
+            }
         }
 
-        while (true)
-        {
-            connection.Wait(); // Wait for PostgreSQL notifications
-        }
     }
-}
-
-// Gvar class definition
-public class Gvar
-{
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public string Value { get; set; }
 }
