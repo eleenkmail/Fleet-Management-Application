@@ -21,6 +21,7 @@ The Fleet Management Application is a comprehensive system designed to manage an
 - PostgreSQL database integration
 - RESTful API
 - Swagger API documentation
+- Postman API documentation
 - Notifications for database changes
 
 ## Technology Stack
@@ -28,7 +29,6 @@ The Fleet Management Application is a comprehensive system designed to manage an
 - **Frontend:** Angular
 - **WebSockets:** Fleck
 - **Database:** PostgreSQL
-- **ORM:** Entity Framework Core
 - **Serialization:** Newtonsoft.Json
 
 ## Prerequisites
