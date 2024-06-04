@@ -9,8 +9,7 @@
 - [Usage](#usage)
 - [WebSocket Integration](#websocket-integration)
 - [Database Notifications](#database-notifications)
-- [Contributing](#contributing)
-- [License](#license)
+
 
 ## Introduction
 The Fleet Management Application is a comprehensive system designed to manage and monitor vehicle fleets efficiently. The application provides real-time data updates via WebSockets and is built using ASP.NET Core for the backend and Angular for the frontend.
