@@ -155,3 +155,10 @@ namespace FMA_API.Controllers
 
     }
 }
+ ```
+
+
+###Initialize WebSocket Service in Program.cs
+
+**Program.cs**:
+
